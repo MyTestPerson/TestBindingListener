@@ -5,27 +5,15 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.session.SessionRegistry;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final
-    SessionRegistry sessionRegistry;
-
-    public SecurityConfig(SessionRegistry sessionRegistry) {
-        this.sessionRegistry = sessionRegistry;
-    }
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user").password("{noop}1111").roles("ADMIN")
-                .and()
-                .withUser("roma").password("{noop}1111").roles("ADMIN");
+        auth.inMemoryAuthentication().withUser("user").password("{noop}1111").roles("ADMIN");
     }
 
 
@@ -50,14 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout").clearAuthentication(true)
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
-
-                .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                .maximumSessions(1)
-                .expiredUrl("/login")
-                .sessionRegistry(sessionRegistry)
-                .and().sessionFixation().none();
+                .deleteCookies("JSESSIONID");
 
     }
 
