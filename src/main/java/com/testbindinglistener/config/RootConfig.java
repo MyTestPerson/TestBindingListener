@@ -14,11 +14,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @ComponentScan({"com.testbindinglistener.security", "com.testbindinglistener.service"})
 public class RootConfig {
 
-
     @Bean
     public HttpSessionEventPublisher httpSessionEventPublisher() {
         return new HttpSessionEventPublisher();
     }
-
 
 }
