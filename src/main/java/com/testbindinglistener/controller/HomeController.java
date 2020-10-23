@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class HomeController {
 
-
     @GetMapping(value = "/")
     public String homePage () {
             return "/home";
